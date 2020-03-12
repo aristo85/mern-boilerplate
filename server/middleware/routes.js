@@ -27,7 +27,7 @@ module.exports = (app, db) => {
         });
 
     app.get('/', (req, res) => {
-        return res.json({
+        res.json({
             loginSuccess: false,
             message: "Auth unSuccess"
         })
