@@ -2,16 +2,28 @@
   "name": "mern-boilerplate",
   "version": "1.0.0",
   "description": "MERN",
-  "main": "index.js",
+  "main": "server/index.js",
+  "engines": {
+    "node":"12.13.0",
+    "npm":"6.13.1"
+  },
   "scripts": {
+    "start": "node server/index.js",
+    "backend": "nodemon server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ari",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.8",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "express": "^4.17.1",
-    "mongoose": "^5.4.20"
+    "express-session": "^1.17.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^2.2.36",
+    "mongoose": "^5.4.20",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   }
 }
