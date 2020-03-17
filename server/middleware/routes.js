@@ -10,18 +10,18 @@ module.exports = (app, db) => {
         res.redirect('/');
     };
 
-    app.post('/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {
-        res.redirect('/profile');
+    app.post('/api/users/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {
+        res.redirect('/api/users/profile');
     })
 
-    app.get('/profile', ensureAuthenticated, (req, res) => {
-        return res.json({
+    app.get('/api/users/profile', ensureAuthenticated, (req, res) => {
+        res.json({
             loginSuccess: true,
             message: "Auth success"
         })
     })
 
-    app.get('/logout', (req, res) => {
+    app.get('/api/users/logout', (req, res) => {
             req.logout();
             res.redirect('/');
         });
@@ -33,7 +33,7 @@ module.exports = (app, db) => {
         })
     })
 
-    app.post('/register', (req, res, next) => {
+    app.post('/api/users/register', (req, res, next) => {
             db.collection('users').findOne({ username: req.body.username }, function(err, user) {
                 if (err) {
                     next(err);
@@ -58,7 +58,7 @@ module.exports = (app, db) => {
         },
         passport.authenticate('local', { failureRedirect: '/' }),
         (req, res, next) => {
-            res.redirect('/profile');
+            res.redirect('/api/users/profile');
         }
     );
 
