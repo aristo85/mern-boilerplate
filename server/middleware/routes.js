@@ -5,33 +5,46 @@ module.exports = (app, db) => {
 
     function ensureAuthenticated(req, res, next) {
         if (req.isAuthenticated()) {
+            db.collection('users').findOne({ username: req.body.username }, function(err, user) {
+                if (err) {
+                    next(err);
+                } else if (user) {
+                    req.user = user;
+                }
+            })
             return next();
         }
-        res.redirect('/');
+        res.json({
+            login: false,
+            message: "logged out"
+        })
     };
 
-    app.post('/api/users/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {
-        res.redirect('/api/users/profile');
-    })
+    app.get('/api/users/auth', ensureAuthenticated, (req, res) => {
+        res.status(200).json({
+            _id: req.user._id,
+            isAdmin: req.user.role !== 0,
+            isAuth: true,
+            email: req.user.email,
+            name: req.user.name,
+            lastname: req.user.lastname,
+            role: req.user.role,
+            username: req.user.username,
+        });
+    });
 
-    app.get('/api/users/profile', ensureAuthenticated, (req, res) => {
-        res.json({
-            loginSuccess: true,
-            message: "Auth success"
-        })
+    app.post('/api/users/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {
+        res.status(200).json({
+            loginSuccess: true
+        });
     })
 
     app.get('/api/users/logout', (req, res) => {
-            req.logout();
-            res.redirect('/');
+        req.logout();
+        res.status(200).send({
+            success: true
         });
-
-    app.get('/', (req, res) => {
-        res.json({
-            loginSuccess: false,
-            message: "Auth unSuccess"
-        })
-    })
+    });
 
     app.post('/api/users/register', (req, res, next) => {
             db.collection('users').findOne({ username: req.body.username }, function(err, user) {
@@ -43,7 +56,11 @@ module.exports = (app, db) => {
                     const hash = bCrypt.hashSync(req.body.password, 10);
                     db.collection('users').insertOne({
                             username: req.body.username,
-                            password: hash
+                            password: hash,
+                            lastname: req.body.lastname,
+                            name: req.body.name,
+                            email: req.body.email,
+                            role: 0
                         },
                         (err, doc) => {
                             if (err) {
@@ -58,7 +75,9 @@ module.exports = (app, db) => {
         },
         passport.authenticate('local', { failureRedirect: '/' }),
         (req, res, next) => {
-            res.redirect('/api/users/profile');
+            res.status(200).json({
+                success: true
+            });
         }
     );
 
@@ -67,7 +86,5 @@ module.exports = (app, db) => {
             .type('text')
             .send('Not Found');
     });
-
-
 
 }

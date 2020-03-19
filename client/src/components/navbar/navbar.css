@@ -44,11 +44,12 @@ body {
 }
 
 @media screen and (max-width: 600px) {
-    .topnav.responsive {position: relative;}
+    .topnav.responsive {position: fixed;}
     .topnav.responsive .icon {
         position: absolute;
         right: 0;
         top: 0;
+        height: 100%;
     }
     .topnav.responsive a {
         float: none;
