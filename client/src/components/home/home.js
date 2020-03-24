@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import Leftmenu from "../navbar/leftmenu";
+import 'bootstrap/dist/css/bootstrap.css';
 
 class Home extends Component {
     render() {
         return (
             <div>
-               <Leftmenu />
+                <h1>Home Page</h1>
             </div>
         );
     }

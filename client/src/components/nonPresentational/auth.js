@@ -7,7 +7,6 @@ class AuthenticationCheck extends Component {
 
     checkAuth = (adminRoute = null) => {
         this.props.dispatch(AuthPage()).then(response => {
-            console.log(response);
             if (!response.payload.isAuth) {
                 if (this.props.reload) {
                     this.props.history.push('/login');

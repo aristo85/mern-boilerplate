@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
-import Leftmenu from "../navbar/leftmenu";
-import {logoutUser} from "../../actions/user_actions";
 import { connect } from 'react-redux';
+import NavbarMenu from "../navbar";
 
 class About extends Component {
     render() {
         return (
             <div>
-                <Leftmenu />
+                <NavbarMenu />
                 This is About page
-                <button onClick={() => logoutUser()}>Log Out</button>
             </div>
         );
     }

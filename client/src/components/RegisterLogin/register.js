@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { registerUser } from '../../actions/user_actions';
 import { connect } from 'react-redux';
-import Leftmenu from "../navbar/leftmenu";
+import {Button} from "reactstrap";
 
 class Register extends Component {
 
@@ -47,12 +47,12 @@ class Register extends Component {
 
     isFormEmpty = ({ lastname, name, username, email, password, passwordconfirmation}) => {
         return (
-          !lastname.length ||
-          !name.length ||
-          !username.length ||
-          !email.length ||
-          !password.length ||
-          !passwordconfirmation.length
+            !lastname.length ||
+            !name.length ||
+            !username.length ||
+            !email.length ||
+            !password.length ||
+            !passwordconfirmation.length
         );
     }
 
@@ -72,7 +72,7 @@ class Register extends Component {
             this.setState({ errors: [] })
             this.props.dispatch(registerUser(dataToSubmit))
                 .then(response => {
-                    if(response.payload.loginSuccess){
+                    if(response.payload.register){
                         this.props.history.push('/login')
                     } else {
                         this.setState({
@@ -94,8 +94,7 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="container">
-                <Leftmenu />
+            <div className="container container-fluid">
                 <h2> Sign Up </h2>
                 <div>
                     <form>
@@ -170,16 +169,16 @@ class Register extends Component {
                             <div>
                                 {this.displayErrors(this.state.errors)}
                             </div>
-                        ): null}
+                        ): null}<br/>
 
                         <div>
-                            <button
+                            <Button
                                 type="submit"
                                 name="action"
                                 onClick={this.submitForm}
                             >
                                 Create an account
-                            </button>
+                            </Button>
                         </div>
 
                     </form>

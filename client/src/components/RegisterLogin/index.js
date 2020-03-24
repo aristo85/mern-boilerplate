@@ -2,15 +2,16 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { loginUser } from "../../actions/user_actions";
 import { Link } from "react-router-dom";
-import Leftmenu from "../navbar/leftmenu";
+import 'bootstrap/dist/css/bootstrap.css';
+import { Button } from 'reactstrap';
 
 class RegisterLogin extends Component {
 
-   state = {
-            username: "",
-            password: "",
-            errors: []
-        }
+    state = {
+        username: "",
+        password: "",
+        errors: []
+    }
 
 
     displayErrors = errors => (
@@ -53,8 +54,7 @@ class RegisterLogin extends Component {
 
     render() {
         return (
-            <div className="container">
-                <Leftmenu />
+            <div className="container container-fluid">
                 <h2> Login </h2>
                 <div>
                     <form>
@@ -87,21 +87,21 @@ class RegisterLogin extends Component {
                             </div>
                         ): null}
 
-                        <div>
-                            <button
+                        <div><br/>
+                            <Button
                                 type="submit"
                                 name="action"
                                 onClick={this.submitForm}
-                                >
+                            >
                                 Login
-                            </button>&nbsp;
+                            </Button>&nbsp;
                             <Link to="/register">
-                                <button
+                                <Button
                                     type="submit"
                                     name="action"
                                 >
                                     Sign up
-                                </button>
+                                </Button>
                             </Link>
                         </div>
 

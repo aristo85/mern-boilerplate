@@ -16,7 +16,8 @@ module.exports = (app, db) => {
         }
         res.json({
             login: false,
-            message: "logged out"
+            message: "logged out",
+            isAuth: false
         })
     };
 
