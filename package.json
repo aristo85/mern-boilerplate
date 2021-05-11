@@ -16,7 +16,7 @@
   "author": "Ari",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.8",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.4.1",
     "concurrently": "^5.1.0",
